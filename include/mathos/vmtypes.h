@@ -26,30 +26,19 @@ IN THE SOFTWARE.
 #ifndef mathos_vmtypes_h
 #define mathos_vmtypes_h
 
-#include "mathos/vector4.h"
-
 namespace mathos {
+namespace vm {
 
-#if defined(__MATHOS_WIN32__)
+#if defined(MATHOS_WINDOWS)
     #define VMATH_SSE
-#elif defined(__MATHOS_MACOSX__)
+#elif defined(MATHOS_MACOSX)
     #define VMATH_SSE
-#elif defined(__MATHOS_IOS__)
-    #if defined(_ARM_ARCH_7)
-        #define VMATH_ARM_NEON
-        #include <arm_neon.h>
-    #else
-        #define VMATH_ARM_VFP
-    #endif
-#elif defined(__MATHOS_NACL__)
-    #define VMATH_SSE
+#elif defined(MATHOS_IOS)
+    #define VMATH_ARM_NEON
 #endif
 
 #if defined(VMATH_SSE)
     #include <emmintrin.h>
-#endif
-
-#if defined(VMATH_SSE)
     typedef __m128 vmvec;
     typedef vmvec const& vmvecFastParam;
     typedef vmvec const& vmvecParam;
@@ -71,6 +60,7 @@ namespace mathos {
     #define VM_PERMUTE_1Z       0xfffffff6
     #define VM_PERMUTE_1W       0xfffffff7
 #elif defined(VMATH_ARM_NEON)
+    #include <arm_neon.h>
     typedef float32x4_t vmvec;
     typedef vmvec const vmvecFastParam;
     typedef vmvec const& vmvecParam;
@@ -103,7 +93,7 @@ namespace mathos {
 #define VM_FALSE                0
 #define VM_TRUE                 1
 
-typedef struct _vmmat
+typedef struct
 {
     vmvec row0;
     vmvec row1;
@@ -112,13 +102,22 @@ typedef struct _vmmat
 } vmmat;
 typedef vmmat const& vmmatParam;
 
-typedef struct _vmtrans
+typedef struct
+{
+    vmvec row0;
+    vmvec row1;
+    vmvec row2;
+} vmmat34;
+typedef vmmat34 const& vmmat43Param;
+
+typedef struct
 {
     vmvec posScale;
     vmvec quat;
 } vmtrans;
 typedef vmtrans const& vmtransParam;
 
+} // end of vm
 } // end of mathos
 
 #endif
