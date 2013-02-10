@@ -255,10 +255,7 @@ vmvec randomQuat(vmvec& seed);
 #include "mathos/vmtransform_sse.inl"
 #endif
 
-#if 0
-#if defined(VMATH_ARM_VFP)
-#include "mathos/vmmatrix_armvfp.inl"
-#elif defined(VMATH_ARM_NEON)
+#if 0//defined(VMATH_ARM_NEON)
 #include "mathos/vmconvert_armneon.inl"
 #include "mathos/vmvector_armneon.inl"
 #include "mathos/vmvector3_armneon.inl"
@@ -266,16 +263,6 @@ vmvec randomQuat(vmvec& seed);
 #include "mathos/vmmatrix_armneon.inl"
 #include "mathos/vmquaternion_armneon.inl"
 #include "mathos/vmtransform_armneon.inl"
-#endif
-
-#include "mathos/vmconvert.inl"
-#include "mathos/vmvector.inl"
-#include "mathos/vmvector3.inl"
-#include "mathos/vmvector4.inl"
-#include "mathos/vmmatrix.inl"
-#include "mathos/vmquaternion.inl"
-#include "mathos/vmtransform.inl"
-
 #endif
 
 #endif
