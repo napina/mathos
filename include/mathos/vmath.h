@@ -1,6 +1,6 @@
 /*=============================================================================
 
-Copyright (c) 2010-2013 Ville Ruusutie
+Copyright (c) 2010 Ville Ruusutie
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,226 +21,225 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 
 =============================================================================*/
-
 #pragma once
 #ifndef mathos_vmath_h
 #define mathos_vmath_h
 
-#include "mathos/platform.h"
+#include "mathos/math.h"
 #include "mathos/vmtypes.h"
+//-----------------------------------------------------------------------------
 
 namespace mathos {
+namespace vm {
 
 // Load
-vmvec vmLoadInt(void const* source);
-vmvec vmLoadFloat(void const* source);
-vmvec vmLoadVector2(void const* source);
-vmvec vmLoadVector2A(void const* source);
-vmvec vmLoadVector3(void const* source);
-vmvec vmLoadVector3A(void const* source);
-vmvec vmLoadVector4(void const* source);
-vmvec vmLoadVector4A(void const* source);
-vmmat vmLoadMatrix4(void const* source);
-vmmat vmLoadMatrix4A(void const* source);
-vmmat vmLoadMatrix4FromQuaternion(void const* source);
-vmmat vmLoadMatrix4FromQuaternionA(void const* source);
-vmtrans vmLoadTransform(void const* source);
-vmtrans vmLoadTransformA(void const* source);
+vmvec load2(void const* source);
+vmvec load2A(void const* source);
+vmvec load3(void const* source);
+vmvec load3A(void const* source);
+vmvec load4(void const* source);
+vmvec load4A(void const* source);
+vmmat loadM(void const* source);
+vmtrans loadT(void const* source);
+//-----------------------------------------------------------------------------
 
 // Store
-void vmStoreInt(void* destination, vmvecFastParam v);
-void vmStoreFloat(void* destination, vmvecFastParam v);
-void vmStoreVector2(void* destination, vmvecFastParam v);
-void vmStoreVector2A(void* destination, vmvecFastParam v);
-void vmStoreVector3(void* destination, vmvecFastParam v);
-void vmStoreVector3A(void* destination, vmvecFastParam v);
-void vmStoreVector4(void* destination, vmvecFastParam v);
-void vmStoreVector4A(void* destination, vmvecFastParam v);
-void vmStoreMatrix4(void* destination, vmmatParam m);
-void vmStoreMatrix4A(void* destination, vmmatParam m);
-void vmStoreTransform(void* destination, vmtransParam t);
-void vmStoreTransformA(void* destination, vmtransParam t);
+void store2(void* destination, vmvecFastParam v);
+void store2A(void* destination, vmvecFastParam v);
+void store3(void* destination, vmvecFastParam v);
+void store3A(void* destination, vmvecFastParam v);
+void store4(void* destination, vmvecFastParam v);
+void store4A(void* destination, vmvecFastParam v);
+void storeM(void* destination, vmmatParam m);
+void storeT(void* destination, vmtransParam t);
+float extractX(vmvecFastParam v);
+float extractY(vmvecFastParam v);
+float extractZ(vmvecFastParam v);
+float extractW(vmvecFastParam v);
+uint32 extractXInt(vmvecFastParam v);
+uint32 extractYInt(vmvecFastParam v);
+uint32 extractZInt(vmvecFastParam v);
+uint32 extractWInt(vmvecFastParam v);
+//-----------------------------------------------------------------------------
 
 // Setters
-vmvec vmVectorSet(float x, float y, float z, float w);
-vmvec vmVectorSetInt(uint32 x, uint32 y, uint32 z, uint32 w);
-vmvec vmVectorZero();
-vmvec vmVectorSplatOne();
-vmvec vmVectorSplatSignMask();
-vmvec vmVectorSplatMask(uint32 mask);
-vmvec vmVectorSplatX(vmvecFastParam v);
-vmvec vmVectorSplatY(vmvecFastParam v);
-vmvec vmVectorSplatZ(vmvecFastParam v);
-vmvec vmVectorSplatW(vmvecFastParam v);
-vmvec vmVectorReplicate(float f);
-vmvec vmVectorSelect(vmvecFastParam v1, vmvecFastParam v2, vmvecFastParam control);
-vmvec vmVectorPermute(vmvecFastParam v1, vmvecFastParam v2, uint32 e0, uint32 e1, uint32 e2, uint32 e3);
-vmvec vmVectorPermuteV(vmvecFastParam v1, vmvecFastParam v2, vmvecFastParam control);
-vmvec vmVectorMergeXY(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorMergeZW(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorDefaultRandomSeed();
+vmvec make(float x, float y, float z, float w);
+vmvec makeInt(uint32 x, uint32 y, uint32 z, uint32 w);
+vmvec replicate(float f);
+vmvec splatZero();
+vmvec splatOne();
+vmvec splatSignMask();
+vmvec splatMask(uint32 mask);
+vmvec splatX(vmvecFastParam v);
+vmvec splatY(vmvecFastParam v);
+vmvec splatZ(vmvecFastParam v);
+vmvec splatW(vmvecFastParam v);
+vmvec select(vmvecFastParam a, vmvecFastParam b, vmvecFastParam control);
+vmvec permute(vmvecFastParam a, vmvecFastParam b, uint32 e0, uint32 e1, uint32 e2, uint32 e3);
+vmvec permute(vmvecFastParam a, vmvecFastParam b, vmvecFastParam control);
+vmvec mergeXY(vmvecFastParam a, vmvecFastParam b);
+vmvec mergeZW(vmvecFastParam a, vmvecFastParam b);
 
-// Getters
-float vmVectorGetX(vmvecFastParam v);
-float vmVectorGetY(vmvecFastParam v);
-float vmVectorGetZ(vmvecFastParam v);
-float vmVectorGetW(vmvecFastParam v);
-uint32 vmVectorGetXInt(vmvecFastParam v);
-uint32 vmVectorGetYInt(vmvecFastParam v);
-uint32 vmVectorGetZInt(vmvecFastParam v);
-uint32 vmVectorGetWInt(vmvecFastParam v);
-
-// Macros
-// vmvec vmVectorvmVectorInsert(vmvecFastParam v1, vmvecFastParam v2, uint32 selectX, uint32 selectY, uint32 selectZ, uint32 selectW);
-// vmvec vmVectorShiftLeft(vmvecFastParam v1, vmvecFastParam v2, uint32 elements)
-// vmvec vmVectorRotateLeft(vmvecFastParam v, uint32 elements)
-// vmvec vmVectorRotateRight(vmvecFastParam v, uint32 elements)
-// vmvec vmVectorSwizzle(vmvecFastParam v, uint32 e0, uint32 e1, uint32 e2, uint32 e3)
-// vmvec vmVectorPermuteXYZA(vmvecFastParam v1, vmvecFastParam v2)
-
-// Clipping
-vmvec vmVectorAbs(vmvecFastParam v);
-vmvec vmVectorNegate(vmvecFastParam v1);
-vmvec vmVectorMin(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorMax(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorFract(vmvecFastParam v);
-vmvec vmVectorRound(vmvecFastParam v);
-vmvec vmVectorFloor(vmvecFastParam v);
-vmvec vmVectorCeil(vmvecFastParam v);
-vmvec vmVectorTruncate(vmvecFastParam v);
-vmvec vmVectorClamp(vmvecFastParam v, vmvecFastParam min, vmvecFastParam max);
-vmvec vmVectorSaturate(vmvecFastParam v);
-
-// Operations
-vmvec vmVectorAdd(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorSubtract(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorMultiply(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorMultiplyAdd(vmvecFastParam v1, vmvecFastParam v2, vmvecFastParam v3);
-vmvec vmVectorNegativeMultiplySubtract(vmvecFastParam v1, vmvecFastParam v2, vmvecFastParam v3);
-vmvec vmVectorDivide(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorDivideEst(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorSqrt(vmvecFastParam v);
-vmvec vmVectorSqrtEst(vmvecFastParam v);
-vmvec vmVectorReciprocalSqrt(vmvecFastParam v);
-vmvec vmVectorReciprocalSqrtEst(vmvecFastParam v);
-vmvec vmVectorReciprocal(vmvecFastParam v);
-vmvec vmVectorReciprocalEst(vmvecFastParam v);
-vmvec vmVectorSin(vmvecFastParam v);
-vmvec vmVectorSinZeroHalfPI(vmvecFastParam v);
-vmvec vmVectorCos(vmvecFastParam v);
-vmvec vmVectorATanPositive(vmvecFastParam y, vmvecFastParam x);
-vmvec vmVectorRandom01(vmvec& seed);
-vmvec vmVectorRandomSigned(vmvec& seed);
+vmvec insert(vmvecFastParam v1, vmvecFastParam v2, uint32 selectX, uint32 selectY, uint32 selectZ, uint32 selectW);
+vmvec shiftLeft(vmvecFastParam v1, vmvecFastParam v2, uint32 elements);
+vmvec rotateLeft(vmvecFastParam v, uint32 elements);
+vmvec rotateRight(vmvecFastParam v, uint32 elements);
+vmvec swizzle(vmvecFastParam v, uint32 e0, uint32 e1, uint32 e2, uint32 e3);
+//-----------------------------------------------------------------------------
 
 // Conditional
-vmvec vmVectorIsNaN(vmvecFastParam v);
-vmvec vmVectorEqual(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorNotEqual(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorLess(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorGreater(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVectorInBounds(vmvecFastParam v, vmvecFastParam bounds);
-uint32 vmVectorAllEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAllLess(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAllLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAllGreater(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAllGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAnyEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAnyLess(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAnyLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAnyGreater(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAnyGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 vmVectorAllSame(vmvecFastParam v);
+vmvec isNaN(vmvecFastParam v);
+vmvec isEqual(vmvecFastParam v1, vmvecFastParam v2);
+vmvec isNotEqual(vmvecFastParam v1, vmvecFastParam v2);
+vmvec isLess(vmvecFastParam v1, vmvecFastParam v2);
+vmvec isLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+vmvec isGreater(vmvecFastParam v1, vmvecFastParam v2);
+vmvec isGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+vmvec isInBounds(vmvecFastParam v, vmvecFastParam bounds);
+uint32 allEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32 allLess(vmvecFastParam v1, vmvecFastParam v2);
+uint32 allLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32 allGreater(vmvecFastParam v1, vmvecFastParam v2);
+uint32 allGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32 allSame(vmvecFastParam v);
+uint32 anyEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32 anyLess(vmvecFastParam v1, vmvecFastParam v2);
+uint32 anyLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32 anyGreater(vmvecFastParam v1, vmvecFastParam v2);
+uint32 anyGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+//-----------------------------------------------------------------------------
+
+// Clipping
+vmvec abs4(vmvecFastParam v);
+vmvec neg4(vmvecFastParam v1);
+vmvec min4(vmvecFastParam v1, vmvecFastParam v2);
+vmvec max4(vmvecFastParam v1, vmvecFastParam v2);
+vmvec fract4(vmvecFastParam v);
+vmvec round4(vmvecFastParam v);
+vmvec floor4(vmvecFastParam v);
+vmvec ceil4(vmvecFastParam v);
+vmvec truncate4(vmvecFastParam v);
+vmvec clamp4(vmvecFastParam v, vmvecFastParam min, vmvecFastParam max);
+vmvec saturate4(vmvecFastParam v);
+//-----------------------------------------------------------------------------
+
+// Operations
+vmvec add4(vmvecFastParam v1, vmvecFastParam v2);
+vmvec sub4(vmvecFastParam v1, vmvecFastParam v2);
+vmvec mul4(vmvecFastParam v1, vmvecFastParam v2);
+vmvec mulAdd4(vmvecFastParam v1, vmvecFastParam v2, vmvecFastParam v3);
+vmvec negMulSub4(vmvecFastParam v1, vmvecFastParam v2, vmvecFastParam v3);
+vmvec div4(vmvecFastParam v1, vmvecFastParam v2);
+vmvec divEst4(vmvecFastParam v1, vmvecFastParam v2);
+vmvec sqrt4(vmvecFastParam v);
+vmvec sqrtEst4(vmvecFastParam v);
+vmvec reciprocalSqrt4(vmvecFastParam v);
+vmvec reciprocalSqrtEst4(vmvecFastParam v);
+vmvec reciprocal4(vmvecFastParam v);
+vmvec reciprocalEst4(vmvecFastParam v);
+vmvec sin4(vmvecFastParam v);
+vmvec sinZeroHalfPI4(vmvecFastParam v);
+vmvec cos4(vmvecFastParam v);
+vmvec atanPositive4(vmvecFastParam y, vmvecFastParam x);
+//-----------------------------------------------------------------------------
 
 // Vector3
-vmvec vmVector3Add(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVector3Subtract(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVector3Cross(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVector3Dot(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVector3Length(vmvecFastParam v);
-vmvec vmVector3LengthEst(vmvecFastParam v);
-vmvec vmVector3Normalize(vmvecFastParam v);
-vmvec vmVector3NormalizeEst(vmvecFastParam v);
-vmvec vmVector3Reflect(vmvecFastParam v, vmvecFastParam normal);
-vmvec vmVector3Refract(vmvecFastParam v, vmvecFastParam normal, float const refraction);
-vmvec vmVector3RefractV(vmvecFastParam v, vmvecFastParam normal, vmvecFastParam refraction);
-vmvec vmVector3TransformQ(vmvecFastParam v, vmvecFastParam q);
-vmvec vmVector3TransformM(vmvecFastParam v, vmmatParam m);
-vmvec vmVector3TransformT(vmvecFastParam v, vmtransParam t);
-vmvec vmVector3TransformNormalM(vmvecFastParam n, vmmatParam m);
-vmvec vmVector3TransformNormalT(vmvecFastParam n, vmtransParam t);
-vmvec vmVector3Random01(vmvec& seed);
-vmvec vmVector3RandomSigned(vmvec& seed);
-vmvec vmVector3RandomNormal(vmvec& seed);
+vmvec add3(vmvecFastParam v1, vmvecFastParam v2);
+vmvec sub3(vmvecFastParam v1, vmvecFastParam v2);
+vmvec dot3(vmvecFastParam v1, vmvecFastParam v2);
+vmvec cross3(vmvecFastParam v1, vmvecFastParam v2);
+vmvec length3(vmvecFastParam v);
+vmvec lengthEst3(vmvecFastParam v);
+vmvec normalize3(vmvecFastParam v);
+vmvec normalizeEst3(vmvecFastParam v);
+vmvec reflect3(vmvecFastParam v, vmvecFastParam normal);
+vmvec refract3(vmvecFastParam v, vmvecFastParam normal, vmvecFastParam refraction);
+vmvec transform3(vmvecFastParam v, vmvecFastParam q);
+vmvec transform3(vmvecFastParam v, vmmatParam m);
+vmvec transform3(vmvecFastParam v, vmtransParam t);
+vmvec transformNormal(vmvecFastParam n, vmmatParam m);
+vmvec transformNormal(vmvecFastParam n, vmtransParam t);
+//-----------------------------------------------------------------------------
 
 // Vector4
-vmvec vmVector4Dot(vmvecFastParam v1, vmvecFastParam v2);
-vmvec vmVector4Length(vmvecFastParam v);
-vmvec vmVector4LengthEst(vmvecFastParam v);
-vmvec vmVector4Normalize(vmvecFastParam v);
-vmvec vmVector4NormalizeEst(vmvecFastParam v);
-vmvec vmVector4TransformQ(vmvecFastParam v, vmvecFastParam q);
-vmvec vmVector4TransformM(vmvecFastParam v, vmmatParam m);
-vmvec vmVector4TransformT(vmvecFastParam v, vmtransParam t);
+vmvec dot4(vmvecFastParam v1, vmvecFastParam v2);
+vmvec length4(vmvecFastParam v);
+vmvec lengthEst4(vmvecFastParam v);
+vmvec normalize4(vmvecFastParam v);
+vmvec normalizeEst4(vmvecFastParam v);
+vmvec transform4(vmvecFastParam v, vmvecFastParam q);
+vmvec transform4(vmvecFastParam v, vmmatParam m);
+vmvec transform4(vmvecFastParam v, vmtransParam t);
+vmvec lerp4(vmvecFastParam a, vmvecFastParam b, vmvecFastParam t);
+//-----------------------------------------------------------------------------
 
 // Matrix
-vmmat vmMatrixIdentity();
-vmmat vmMatrixFromTranslation(vmvecParam v);
-vmmat vmMatrixFromScale(vmvecParam s);
-vmmat vmMatrixFromRotationX(float const xAngle);
-vmmat vmMatrixFromRotationY(float const yAngle);
-vmmat vmMatrixFromRotationZ(float const zAngle);
-vmmat vmMatrixFromAxisAngle(vmvecParam axis, float const angle);
-vmmat vmMatrixFromQuaternion(vmvecFastParam q);
-vmmat vmMatrixFromTransform(vmtransParam t);
-vmmat vmMatrixFromLookAt(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up);
-vmmat vmMatrixFromLookAtRotation(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up);
-vmmat vmMatrixOrthonormalize(vmmatParam m);
-vmmat vmMatrixTranspose(vmmatParam m);
-vmmat vmMatrixMultiply(vmmatParam m1, vmmatParam m2);
-vmmat vmMatrixMultiplyTranspose(vmmatParam m1, vmmatParam m2);
-vmmat vmMatrixTranslate(vmmatParam m, vmvecParam v);
-vmmat vmMatrixScale(vmmatParam m, vmvecParam s);
-vmmat vmMatrixInvert(vmmatParam m);
-vmmat vmMatrixInvertRotationTranslation(vmmatParam m);
-vmmat vmMatrixLookAt(vmmatParam m, vmvecParam at, vmvecParam up);
+vmmat identityM();
+vmmat toMatrix(vmvecFastParam q);
+vmmat toMatrix(vmtransParam t);
+vmmat makeTranslationM(vmvecParam v);
+vmmat makeScaleM(vmvecParam s);
+vmmat makeXRotationM(float const xAngle);
+vmmat makeYRotationM(float const yAngle);
+vmmat makeZRotationM(float const zAngle);
+vmmat makeAxisAngleM(vmvecParam axis, float const angle);
+vmmat makeLookAtM(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up);
+vmmat makeLookAtRotationM(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up);
+
+vmmat orthonormalizeM(vmmatParam m);
+vmmat transposeM(vmmatParam m);
+vmmat mulM(vmmatParam a, vmmatParam b);
+vmmat mulTransposeM(vmmatParam a, vmmatParam b);
+vmmat translateM(vmmatParam m, vmvecParam v);
+vmmat scaleM(vmmatParam m, vmvecParam s);
+vmmat invertM(vmmatParam m);
+vmmat invertRotationTranslationM(vmmatParam m);
+//-----------------------------------------------------------------------------
 
 // Quaternion
-vmvec vmQuaternionIdentity();
-vmvec vmQuaternionFromMatrix(vmmatParam m);
-vmvec vmQuaternionFromRotationX(float const xAngle);
-vmvec vmQuaternionFromRotationY(float const yAngle);
-vmvec vmQuaternionFromRotationZ(float const zAngle);
-vmvec vmQuaternionFromAxisAngle(vmvecFastParam axis, float const angle);
-vmvec vmQuaternionFromLookAt(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up);
-vmvec vmQuaternionConjugate(vmvecFastParam q);
-vmvec vmQuaternionNormalize(vmvecFastParam q);
-vmvec vmQuaternionNormalizeEst(vmvecFastParam q);
-vmvec vmQuaternionAdd(vmvecFastParam q1, vmvecFastParam q2);
-vmvec vmQuaternionSub(vmvecFastParam q1, vmvecFastParam q2);
-vmvec vmQuaternionMultiply(vmvecFastParam q1, vmvecFastParam q2);
-vmvec vmQuaternionRotate(vmvecFastParam q, vmvecFastParam axis, float const angle);
-vmvec vmQuaternionLerp(vmvecFastParam q1, vmvecFastParam q2, float const t);
-vmvec vmQuaternionSlerp(vmvecFastParam q1, vmvecFastParam q2, float const t);
-vmvec vmQuaternionSlerpV(vmvecFastParam q1, vmvecFastParam q2, vmvecFastParam t);
-vmvec vmQuaternionRandom(vmvec& seed);
-vmvec vmQuaternionGetXAxis(vmvecFastParam q);
-vmvec vmQuaternionGetYAxis(vmvecFastParam q);
-vmvec vmQuaternionGetZAxis(vmvecFastParam q);
+vmvec identityQ();
+vmvec toQuaternion(vmmatParam m);
+vmvec makeXRotationQ(float const xAngle);
+vmvec makeYRotationQ(float const yAngle);
+vmvec makeZRotationQ(float const zAngle);
+vmvec makeAxisAngleQ(vmvecFastParam axis, float const angle);
+vmvec makeLookAtQ(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up);
+
+vmvec addQ(vmvecFastParam a, vmvecFastParam b);
+vmvec subQ(vmvecFastParam a, vmvecFastParam b);
+vmvec mulQ(vmvecFastParam a, vmvecFastParam b);
+vmvec conjugateQ(vmvecFastParam q);
+vmvec normalizeQ(vmvecFastParam q);
+vmvec rotateQ(vmvecFastParam q, vmvecFastParam axis, float const angle);
+vmvec lerpQ(vmvecFastParam a, vmvecFastParam b, vmvecFastParam t);
+vmvec slerpQ(vmvecFastParam a, vmvecFastParam b, vmvecFastParam t);
+vmvec extractXAxisQ(vmvecFastParam q);
+vmvec extractYAxisQ(vmvecFastParam q);
+vmvec extractZAxisQ(vmvecFastParam q);
+//-----------------------------------------------------------------------------
 
 // Transform
-vmtrans vmTransformIdentity();
-vmtrans vmTransformFromLookAt(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up);
-vmtrans vmTransformTranslate(vmtransParam t, vmvecParam v);
-vmtrans vmTransformScale(vmtransParam t, float const s);
-vmtrans vmTransformScaleV(vmtransParam t, vmvecParam v);
-vmtrans vmTransformRotate(vmtransParam t, vmvecParam q);
-vmtrans vmTransformInvert(vmtransParam t);
-vmtrans vmTransformCombine(vmtransParam t1, vmtransParam t2);
-vmtrans vmTransformLookAt(vmtransParam t, vmvecFastParam at, vmvecFastParam up);
-vmtrans vmTransformNormalize(vmtransParam t);
+vmtrans identityT();
+vmtrans toTransform(vmmatParam m);
+vmtrans makeLookAtT(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up);
 
+vmtrans translateT(vmtransParam t, vmvecParam v);
+vmtrans scaleT(vmtransParam t, vmvecParam s);
+vmtrans rotateT(vmtransParam t, vmvecParam q);
+vmtrans invertT(vmtransParam t);
+vmtrans combineT(vmtransParam t1, vmtransParam t2);
+vmtrans normalizeT(vmtransParam t);
+//-----------------------------------------------------------------------------
+
+// Random
+vmvec randomSeed();
+vmvec random01(vmvec& seed);
+vmvec randomSigned(vmvec& seed);
+vmvec randomNormal(vmvec& seed);
+vmvec randomQuat(vmvec& seed);
+//-----------------------------------------------------------------------------
+
+} // end of vm
 } // end of mathos
 
 #include "mathos/floatmath.h"
@@ -252,6 +251,9 @@ vmtrans vmTransformNormalize(vmtransParam t);
 #include "mathos/vmmatrix_sse.inl"
 #include "mathos/vmquaternion_sse.inl"
 #include "mathos/vmtransform_sse.inl"
+#endif
+
+#if 0
 #elif defined(VMATH_ARM_VFP)
 #include "mathos/vmmatrix_armvfp.inl"
 #elif defined(VMATH_ARM_NEON)
@@ -271,5 +273,7 @@ vmtrans vmTransformNormalize(vmtransParam t);
 #include "mathos/vmmatrix.inl"
 #include "mathos/vmquaternion.inl"
 #include "mathos/vmtransform.inl"
+
+#endif
 
 #endif
