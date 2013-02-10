@@ -1,6 +1,6 @@
 /*=============================================================================
 
-Copyright (c) 2010-2013 Ville Ruusutie
+Copyright (c) 2010 Ville Ruusutie
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 
 =============================================================================*/
-
 #pragma once
 #ifndef mathos_vmtypes_h
 #define mathos_vmtypes_h

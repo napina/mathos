@@ -25,7 +25,7 @@ IN THE SOFTWARE.
 #ifndef mathos_vmath_h
 #define mathos_vmath_h
 
-#include "mathos/math.h"
+//#include "mathos/math.h"
 #include "mathos/vmtypes.h"
 //-----------------------------------------------------------------------------
 
@@ -77,14 +77,15 @@ vmvec splatW(vmvecFastParam v);
 vmvec select(vmvecFastParam a, vmvecFastParam b, vmvecFastParam control);
 vmvec permute(vmvecFastParam a, vmvecFastParam b, uint32 e0, uint32 e1, uint32 e2, uint32 e3);
 vmvec permute(vmvecFastParam a, vmvecFastParam b, vmvecFastParam control);
+vmvec permuteXYZA(vmvecFastParam a, vmvecFastParam b);
 vmvec mergeXY(vmvecFastParam a, vmvecFastParam b);
 vmvec mergeZW(vmvecFastParam a, vmvecFastParam b);
 
-vmvec insert(vmvecFastParam v1, vmvecFastParam v2, uint32 selectX, uint32 selectY, uint32 selectZ, uint32 selectW);
-vmvec shiftLeft(vmvecFastParam v1, vmvecFastParam v2, uint32 elements);
-vmvec rotateLeft(vmvecFastParam v, uint32 elements);
-vmvec rotateRight(vmvecFastParam v, uint32 elements);
-vmvec swizzle(vmvecFastParam v, uint32 e0, uint32 e1, uint32 e2, uint32 e3);
+//vmvec vm_insert(vmvecFastParam v1, vmvecFastParam v2, uint32 selectX, uint32 selectY, uint32 selectZ, uint32 selectW);
+//vmvec vm_shiftLeft(vmvecFastParam v1, vmvecFastParam v2, uint32 elements);
+//vmvec vm_rotateLeft(vmvecFastParam v, uint32 elements);
+//vmvec vm_rotateRight(vmvecFastParam v, uint32 elements);
+//vmvec vm_swizzle(vmvecFastParam v, uint32 e0, uint32 e1, uint32 e2, uint32 e3);
 //-----------------------------------------------------------------------------
 
 // Conditional
@@ -210,6 +211,7 @@ vmvec subQ(vmvecFastParam a, vmvecFastParam b);
 vmvec mulQ(vmvecFastParam a, vmvecFastParam b);
 vmvec conjugateQ(vmvecFastParam q);
 vmvec normalizeQ(vmvecFastParam q);
+vmvec normalizeEstQ(vmvecFastParam q);
 vmvec rotateQ(vmvecFastParam q, vmvecFastParam axis, float const angle);
 vmvec lerpQ(vmvecFastParam a, vmvecFastParam b, vmvecFastParam t);
 vmvec slerpQ(vmvecFastParam a, vmvecFastParam b, vmvecFastParam t);
@@ -254,7 +256,7 @@ vmvec randomQuat(vmvec& seed);
 #endif
 
 #if 0
-#elif defined(VMATH_ARM_VFP)
+#if defined(VMATH_ARM_VFP)
 #include "mathos/vmmatrix_armvfp.inl"
 #elif defined(VMATH_ARM_NEON)
 #include "mathos/vmconvert_armneon.inl"
