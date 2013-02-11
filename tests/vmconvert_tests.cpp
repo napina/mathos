@@ -22,7 +22,7 @@ IN THE SOFTWARE.
 
 =============================================================================*/
 #include "unitos/unitos.h"
-#include "mathos/math.h"
+#include "mathos/vmath.h"
 
 namespace m = mathos;
 namespace v = mathos::vm;

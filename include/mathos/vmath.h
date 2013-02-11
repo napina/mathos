@@ -25,7 +25,6 @@ IN THE SOFTWARE.
 #ifndef mathos_vmath_h
 #define mathos_vmath_h
 
-//#include "mathos/math.h"
 #include "mathos/vmtypes.h"
 //-----------------------------------------------------------------------------
 
@@ -244,7 +243,7 @@ vmvec randomQuat(vmvec& seed);
 } // end of vm
 } // end of mathos
 
-#include "mathos/floatmath.h"
+//#include "mathos/floatmath.h"
 #if defined(VMATH_SSE)
 #include "mathos/vmconvert_sse.inl"
 #include "mathos/vmvector_sse.inl"

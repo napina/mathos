@@ -25,6 +25,8 @@ IN THE SOFTWARE.
 #ifndef mathos_vmtypes_h
 #define mathos_vmtypes_h
 
+#include "mathos\math.h"
+
 namespace mathos {
 namespace vm {
 

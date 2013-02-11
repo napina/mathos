@@ -1,7 +1,7 @@
 // Copyright (C) Ville Ruusutie, 2010
 
 #include "unitos/unitos.h"
-#include "mathos/math.h"
+#include "mathos/vmath.h"
 
 namespace v = mathos::vm;
 

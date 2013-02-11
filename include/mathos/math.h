@@ -88,7 +88,7 @@ static const float e = 2.71828182845904523536f;
 } // end of korppu
 
 #include "mathos/floatmath.h"
-#include "mathos/vmath.h"
+#include "mathos/vmtypes.h"
 /*#include "mathos/quaternion.h"
 #include "mathos/transform3.h"
 #include "mathos/transform2.h"
