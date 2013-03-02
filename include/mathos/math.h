@@ -50,17 +50,14 @@ IN THE SOFTWARE.
 #   define inline __forceinline
 #endif
 
-#if !defined(_MSC_VER)
-typedef signed long long __int64;
-#endif
 typedef unsigned int uint32;
 
 #if defined(_MSC_VER)
-#   define PREALIGN16 __declspec(align(16))
-#   define POSTALIGN16
+#   define MATHOS_PREALIGN16 __declspec(align(16))
+#   define MATHOS_POSTALIGN16
 #elif defined(__GNUC__)
-#   define PREALIGN16
-#   define POSTALIGN16 __attribute__((aligned(16)))
+#   define MATHOS_PREALIGN16
+#   define MATHOS_POSTALIGN16 __attribute__((aligned(16)))
 #endif
 
 // your exe must have this somewhere
@@ -87,15 +84,7 @@ static const float e = 2.71828182845904523536f;
 
 } // end of korppu
 
-#include "mathos/floatmath.h"
 #include "mathos/vmtypes.h"
-/*#include "mathos/quaternion.h"
-#include "mathos/transform3.h"
-#include "mathos/transform2.h"
-#include "mathos/matrix44.h"
-#include "mathos/vector4.h"
-#include "mathos/vector3.h"
-#include "mathos/vector2.h"
-#include "mathos/curve.h"*/
+#include "mathos/floatmath.h"
 
 #endif

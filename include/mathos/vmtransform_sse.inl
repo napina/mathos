@@ -37,7 +37,7 @@ __forceinline vmtrans identityT()
 __forceinline vmtrans makeLookAtT(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up)
 {
     static const __m128 identity3 = {0.0f, 0.0f, 0.0f, 1.0f};
-    static const VMMASK mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     vmtrans r;
     r.posScale = _mm_or_ps(_mm_and_ps(eye, mask3.v), identity3);
@@ -47,7 +47,7 @@ __forceinline vmtrans makeLookAtT(vmvecFastParam eye, vmvecFastParam at, vmvecFa
 
 __forceinline vmtrans translateT(vmtransParam t, vmvecParam v)
 {
-    static const VMMASK mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     vmtrans r;
     r.posScale = _mm_add_ps(t.posScale, _mm_and_ps(v, mask3.v));
@@ -66,7 +66,7 @@ __forceinline vmtrans scaleT(vmtransParam t, float const s)
 __forceinline vmtrans scaleT(vmtransParam t, vmvecParam v)
 {
     static const __m128 one3 = {1.0f, 1.0f, 1.0f, 0.0f};
-    static const VMMASK maskW = {0, 0, 0, 0xffffffff};
+    static const vmmask maskW = {0, 0, 0, 0xffffffff};
 
     vmtrans r;
     const __m128 s = _mm_or_ps(one3, _mm_and_ps(v, maskW.v));
@@ -86,7 +86,7 @@ __forceinline vmtrans rotateT(vmtransParam t, vmvecParam q)
 __forceinline vmtrans invertT(vmtransParam t)
 {
     static const __m128 negate3 = {-1.0f, -1.0f, -1.0f, 1.0f};
-    static const VMMASK mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     const __m128 invQuat = conjugateQ(t.quat);
     const __m128 invPos = transform3(t.posScale, invQuat);
@@ -100,7 +100,7 @@ __forceinline vmtrans invertT(vmtransParam t)
 
 __forceinline vmtrans combineT(vmtransParam t1, vmtransParam t2)
 {
-    static const VMMASK mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     __m128 p = _mm_mul_ps(t2.posScale, splatW(t1.posScale));
     __m128 q = transform3(p, t1.quat);

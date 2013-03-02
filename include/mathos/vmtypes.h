@@ -27,30 +27,33 @@ IN THE SOFTWARE.
 
 #include "mathos\math.h"
 
-namespace mathos {
-namespace vm {
-
-#if defined(MATHOS_WINDOWS)
-    #define VMATH_SSE
-#elif defined(MATHOS_MACOSX)
+#if defined(MATHOS_WINDOWS) || defined(MATHOS_MACOSX) || defined(MATHOS_LINUX)
     #define VMATH_SSE
 #elif defined(MATHOS_IOS)
     #define VMATH_ARM_NEON
 #endif
 
 #if defined(VMATH_SSE)
-    #include <emmintrin.h>
+#   include <immintrin.h>
+#elif defined(VMATH_ARM_NEON)
+#   include <arm_neon.h>
+#endif
+
+namespace mathos {
+namespace vm {
+
+#if defined(VMATH_SSE)
     typedef __m128 vmvec;
     typedef vmvec const& vmvecFastParam;
     typedef vmvec const& vmvecParam;
 
-    PREALIGN16 struct VMMASK {
+    MATHOS_PREALIGN16 struct vmmask {
         union {
             uint32 i[4];
             __m128 v;
             __m128i vi;
         };
-    } POSTALIGN16;
+    } MATHOS_POSTALIGN16;
 
     #define VM_PERMUTE_0X       0x00000000
     #define VM_PERMUTE_0Y       0x00000001
@@ -61,7 +64,6 @@ namespace vm {
     #define VM_PERMUTE_1Z       0xfffffff6
     #define VM_PERMUTE_1W       0xfffffff7
 #elif defined(VMATH_ARM_NEON)
-    #include <arm_neon.h>
     typedef float32x4_t vmvec;
     typedef vmvec const vmvecFastParam;
     typedef vmvec const& vmvecParam;
