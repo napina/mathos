@@ -27,15 +27,22 @@ IN THE SOFTWARE.
 
 namespace mathos {
 
-int abs(int value);
-int negate(int value);
+int8_t  abs(int8_t value);
+int16_t abs(int16_t value);
+int32_t abs(int32_t value);
+int64_t abs(int64_t value);
+int8_t  negate(int8_t value);
+int16_t negate(int16_t value);
+int32_t negate(int32_t value);
+int64_t negate(int64_t value);
+
 //int signNegate(int value, int sign);
 //int conditionalNegate(int value, bool condition);
 
-int min(int a, int b);
-int max(int a, int b);
-int clamp(int value, int minValue, int maxValue);
-int snap(int value, int gridStep);
+template<typename T> T min(T a, T b);
+template<typename T> T max(T a, T b);
+template<typename T> T clamp(T value, T minValue, T maxValue);
+template<typename T> T snap(T value, T gridStep);
 
 } // end of mathos
 

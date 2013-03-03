@@ -52,6 +52,28 @@ __forceinline T snap(T value, T gridStep)
 }
 //----------------------------------------------------------------------------
 
+__forceinline int8_t abs(int8_t value)
+{
+    return value & 0x7f;
+}
+
+__forceinline int8_t negate(int8_t value)
+{
+    return value ^ 0x80;
+}
+//----------------------------------------------------------------------------
+
+__forceinline int16_t abs(int16_t value)
+{
+    return value & 0x7fff;
+}
+
+__forceinline int16_t negate(int16_t value)
+{
+    return value ^ 0x8000;
+}
+//----------------------------------------------------------------------------
+
 __forceinline int32_t abs(int32_t value)
 {
     return value & 0x7fffffff;
@@ -61,7 +83,6 @@ __forceinline int32_t negate(int32_t value)
 {
     return value ^ 0x80000000;
 }
-
 //----------------------------------------------------------------------------
 
 __forceinline int64_t abs(int64_t value)
