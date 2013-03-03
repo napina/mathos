@@ -47,13 +47,13 @@ namespace vm {
     typedef vmvec const& vmvecFastParam;
     typedef vmvec const& vmvecParam;
 
-    MATHOS_PREALIGN16 struct vmmask {
+    mathos_prealign16 struct vmmask {
         union {
             uint32_t i[4];
             __m128 v;
             __m128i vi;
         };
-    } MATHOS_POSTALIGN16;
+    } mathos_postalign16;
 
     #define VM_PERMUTE_0X       0x00000000
     #define VM_PERMUTE_0Y       0x00000001

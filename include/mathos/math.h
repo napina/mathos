@@ -44,29 +44,29 @@ IN THE SOFTWARE.
 #   define MATHOS_ARCH32
 #endif
 
-#if defined(__GNUC__)
-#   define __forceinline inline __attribute__((always_inline))
-#elif !defined(_MSC_VER) && !defined(__forceinline)
-#   define inline __forceinline
-#endif
-
-#if defined(_MSC_VER)
-#   define MATHOS_PREALIGN16 __declspec(align(16))
-#   define MATHOS_POSTALIGN16
-#elif defined(__GNUC__)
-#   define MATHOS_PREALIGN16
-#   define MATHOS_POSTALIGN16 __attribute__((aligned(16)))
-#endif
-
 #define mathos_tostring_impl(x) #x
 #define mathos_tostring(x)      mathos_tostring_impl(x)
+
 #if defined(_MSC_VER)
 #   define mathos_lineinfo      __FILE__ "(" mathos_tostring(__LINE__) ")"
+#   define mathos_todo(msg)     __pragma(message(mathos_lineinfo " TODO " msg))
+#   define mathos_prealign16    __declspec(align(16))
+#   define mathos_postalign16
+#elif defined(__GNUC__)
+#   define mathos_lineinfo      __FILE__ ":" mathos_tostring(__LINE__)
+#   define mathos_todo(msg)     __Pragma(message("TODO " msg))
+#   define mathos_prealign16    __attribute__((aligned(16)))
+#   define mathos_postalign16
+#   define __forceinline        inline __attribute__((always_inline))
+#   define __restrict           __restrict__
 #else
 #   define mathos_lineinfo      __FILE__ ":" mathos_tostring(__LINE__)
+#   define mathos_todo(msg)
+#   define mathos_prealign16
+#   define mathos_postalign16
+#   define __forceinline        inline
+#   define __restrict
 #endif
-
-#define mathos_todo(msg)        __pragma(message(mathos_lineinfo " TODO " msg))
 
 // your exe must have this somewhere
 #define MATHOS_STATIC()\
