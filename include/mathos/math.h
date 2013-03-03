@@ -50,8 +50,6 @@ IN THE SOFTWARE.
 #   define inline __forceinline
 #endif
 
-typedef unsigned int uint32;
-
 #if defined(_MSC_VER)
 #   define MATHOS_PREALIGN16 __declspec(align(16))
 #   define MATHOS_POSTALIGN16
@@ -59,6 +57,16 @@ typedef unsigned int uint32;
 #   define MATHOS_PREALIGN16
 #   define MATHOS_POSTALIGN16 __attribute__((aligned(16)))
 #endif
+
+#define mathos_tostring_impl(x) #x
+#define mathos_tostring(x)      mathos_tostring_impl(x)
+#if defined(_MSC_VER)
+#   define mathos_lineinfo      __FILE__ "(" mathos_tostring(__LINE__) ")"
+#else
+#   define mathos_lineinfo      __FILE__ ":" mathos_tostring(__LINE__)
+#endif
+
+#define mathos_todo(msg)        __pragma(message(mathos_lineinfo " TODO " msg))
 
 // your exe must have this somewhere
 #define MATHOS_STATIC()\
@@ -74,6 +82,15 @@ typedef unsigned int uint32;
 
 namespace mathos {
 
+typedef signed char        int8_t;
+typedef signed short       int16_t;
+typedef signed int         int32_t;
+typedef signed long long   int64_t;
+typedef unsigned char      uint8_t;
+typedef unsigned short     uint16_t;
+typedef unsigned int       uint32_t;
+typedef unsigned long long uint64_t;
+
 static const float pi = 3.14159265358979323846f;
 static const float pi2 = 3.14159265358979323846f * 2.0f;
 static const float pi4 = 3.14159265358979323846f * 4.0f;
@@ -86,5 +103,6 @@ static const float e = 2.71828182845904523536f;
 
 #include "mathos/vmtypes.h"
 #include "mathos/floatmath.h"
+#include "mathos/intmath.h"
 
 #endif

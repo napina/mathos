@@ -230,27 +230,27 @@ __forceinline float extractW(vmvecFastParam v)
     return _mm_cvtss_f32(tmp);
 }
 
-__forceinline uint32 extractXInt(vmvecFastParam v)
+__forceinline uint32_t extractXInt(vmvecFastParam v)
 {
-    return static_cast<uint32>(_mm_cvtsi128_si32(reinterpret_cast<const __m128i*>(&v)[0]));
+    return static_cast<uint32_t>(_mm_cvtsi128_si32(reinterpret_cast<const __m128i*>(&v)[0]));
 }
 
-__forceinline uint32 extractYInt(vmvecFastParam v)
+__forceinline uint32_t extractYInt(vmvecFastParam v)
 {
     __m128i tmp = _mm_shuffle_epi32(reinterpret_cast<const __m128i*>(&v)[0], _MM_SHUFFLE(1,1,1,1));
-    return static_cast<uint32>(_mm_cvtsi128_si32(tmp));
+    return static_cast<uint32_t>(_mm_cvtsi128_si32(tmp));
 }
 
-__forceinline uint32 extractZInt(vmvecFastParam v)
+__forceinline uint32_t extractZInt(vmvecFastParam v)
 {
     __m128i tmp = _mm_shuffle_epi32(reinterpret_cast<const __m128i*>(&v)[0], _MM_SHUFFLE(2,2,2,2));
-    return static_cast<uint32>(_mm_cvtsi128_si32(tmp));
+    return static_cast<uint32_t>(_mm_cvtsi128_si32(tmp));
 }
 
-__forceinline uint32 extractWInt(vmvecFastParam v)
+__forceinline uint32_t extractWInt(vmvecFastParam v)
 {
     __m128i tmp = _mm_shuffle_epi32(reinterpret_cast<const __m128i*>(&v)[0], _MM_SHUFFLE(3,3,3,3));
-    return static_cast<uint32>(_mm_cvtsi128_si32(tmp));
+    return static_cast<uint32_t>(_mm_cvtsi128_si32(tmp));
 }
 
 } // end of vm

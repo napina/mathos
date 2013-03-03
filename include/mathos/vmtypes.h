@@ -49,7 +49,7 @@ namespace vm {
 
     MATHOS_PREALIGN16 struct vmmask {
         union {
-            uint32 i[4];
+            uint32_t i[4];
             __m128 v;
             __m128i vi;
         };

@@ -90,7 +90,7 @@ __forceinline vmvec make(float x, float y, float z, float w)
     return _mm_set_ps(w, z, y, x);
 }
 
-__forceinline vmvec makeInt(uint32 x, uint32 y, uint32 z, uint32 w)
+__forceinline vmvec makeInt(uint32_t x, uint32_t y, uint32_t z, uint32_t w)
 {
     __m128i V = _mm_set_epi32(w, z, y, x);
     return reinterpret_cast<__m128 *>(&V)[0];
@@ -115,7 +115,7 @@ __forceinline vmvec splatSignMask()
 //    return reinterpret_cast<__m128*>(&v)[0];
 }
 
-__forceinline vmvec splatMask(uint32 mask)
+__forceinline vmvec splatMask(uint32_t mask)
 {
     __m128i v = _mm_set1_epi32(mask);
     return reinterpret_cast<__m128*>(&v)[0];
@@ -153,7 +153,7 @@ __forceinline vmvec select(vmvecFastParam v1, vmvecFastParam v2, vmvecFastParam 
     return _mm_or_ps(tmp1, tmp2);
 }
 
-__forceinline vmvec permute(vmvecFastParam v1, vmvecFastParam v2, uint32 e0, uint32 e1, uint32 e2, uint32 e3)
+__forceinline vmvec permute(vmvecFastParam v1, vmvecFastParam v2, uint32_t e0, uint32_t e1, uint32_t e2, uint32_t e3)
 {
     // TODO optimize
     vmvec a[2];
@@ -681,57 +681,57 @@ __forceinline vmvec isInBounds(vmvecFastParam v, vmvecFastParam bounds)
     return _mm_and_ps(a, b);
 }
 
-__forceinline uint32 allEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpeq_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 allLess(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allLess(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmplt_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 allLessOrEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allLessOrEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmple_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 allGreater(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allGreater(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpgt_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 allGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpge_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 anyEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpeq_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 anyLess(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyLess(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmplt_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 anyLessOrEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyLessOrEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmple_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 anyGreater(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyGreater(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpgt_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 anyGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpge_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 allSame(vmvecFastParam v)
+__forceinline uint32_t allSame(vmvecFastParam v)
 {
     return _mm_movemask_ps(_mm_cmpeq_ps(v, _mm_shuffle_ps(v, v, _MM_SHUFFLE(0,0,0,0)))) == 0xf;
 }
