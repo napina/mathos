@@ -49,14 +49,14 @@ IN THE SOFTWARE.
 
 #if defined(_MSC_VER)
 #   define mathos_lineinfo      __FILE__ "(" mathos_tostring(__LINE__) ")"
-#   define mathos_todo(msg)     __pragma(message(mathos_lineinfo " TODO " msg))
+#   define mathos_todo(msg)     __pragma(message(mathos_lineinfo ": TODO " msg))
 #   define mathos_prealign16    __declspec(align(16))
 #   define mathos_postalign16
 #elif defined(__GNUC__)
 #   define mathos_lineinfo      __FILE__ ":" mathos_tostring(__LINE__)
 #   define mathos_todo(msg)     __Pragma(message("TODO " msg))
-#   define mathos_prealign16    __attribute__((aligned(16)))
-#   define mathos_postalign16
+#   define mathos_prealign16
+#   define mathos_postalign16   __attribute__((aligned(16)))
 #   define __forceinline        inline __attribute__((always_inline))
 #   define __restrict           __restrict__
 #else
