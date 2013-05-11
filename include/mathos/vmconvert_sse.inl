@@ -174,7 +174,7 @@ __forceinline void store4A(void* destination, vmvecFastParam v)
     _mm_store_ps((float*)destination, v);
 }
 
-__forceinline void storeM4(void* destination, vmmatParam m)
+__forceinline void storeM(void* destination, vmmatParam m)
 {
     float* dest = (float*)destination;
     _mm_storeu_ps(&dest[0], m.row0);
