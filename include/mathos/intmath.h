@@ -43,6 +43,8 @@ template<typename T> T min(T a, T b);
 template<typename T> T max(T a, T b);
 template<typename T> T clamp(T value, T minValue, T maxValue);
 template<typename T> T snap(T value, T gridStep);
+template<typename T> T wrap(T value, T minValue, T maxValue);
+template<typename T> T select(T mask, T a, T b);
 
 } // end of mathos
 

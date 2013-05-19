@@ -68,6 +68,8 @@ IN THE SOFTWARE.
 #   define __restrict
 #endif
 
+#define mathos_assert(condition)
+
 // your exe must have this somewhere
 #define MATHOS_STATIC()\
     const mathos::mat44 mathos::mat44::identity = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };\

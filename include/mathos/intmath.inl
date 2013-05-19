@@ -50,6 +50,21 @@ __forceinline T snap(T value, T gridStep)
 {
     return (value / gridStep) * gridStep;
 }
+
+template<typename T>
+__forceinline T wrap(T value, T minValue, T maxValue)
+{
+    mathos_assert(minValue < maxValue);
+    const T range = maxValue - minValue;
+    T offset = (value - minValue) % range;
+    return offset + select(offset, minValue, maxValue);
+}
+
+template<typename T>
+__forceinline T select(T mask, T a, T b)
+{
+    return (mask & (a ^ b)) ^ b;
+}
 //----------------------------------------------------------------------------
 
 __forceinline int8_t abs(int8_t value)
