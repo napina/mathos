@@ -135,7 +135,7 @@ __forceinline vmvec refract3(vmvecFastParam v, vmvecFastParam normal, vmvecFastP
 
 __forceinline vmvec transform3(vmvecFastParam v, vmvecFastParam quat)
 {
-    static const VMMASK mask = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000};
+    static const vmmask mask = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000};
 
     const __m128 a = _mm_and_ps(v, mask.v);
     const __m128 q = conjugateQ(quat);

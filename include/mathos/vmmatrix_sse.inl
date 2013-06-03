@@ -44,7 +44,7 @@ __forceinline vmmat makeTranslationM(vmvecParam v)
 {
     static const __m128 identity0 = {1.0f, 0.0f, 0.0f, 0.0f};
     static const __m128 identity3 = {0.0f, 0.0f, 0.0f, 1.0f};
-    static const VMMASK mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     vmmat m;
     m.row0 = identity0;
@@ -57,7 +57,7 @@ __forceinline vmmat makeTranslationM(vmvecParam v)
 __forceinline vmmat makeScaleM(vmvecParam s)
 {
     static const __m128 identity3 = {0.0f, 0.0f, 0.0f, 1.0f};
-    static const VMMASK mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     vmmat m;
     const __m128 s0 = _mm_and_ps(s, mask3.v);
@@ -134,7 +134,7 @@ __forceinline vmmat makeZRotationM(float const angle)
 __forceinline vmmat makeAxisAngleM(vmvecParam axis, float const angle)
 {
     static const __m128 identity3 = {0.0f, 0.0f, 0.0f, 1.0f};
-    static const VMMASK mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     __m128 N0, N1;
     __m128 V0, V1, V2;
@@ -190,18 +190,18 @@ __forceinline vmmat toMatrix(vmvecFastParam q)
     __m128 Q0, Q1;
     __m128 V0, V1, V2;
     __m128 R0, R1, R2;
-    static const __m128 Constant1110 = {1.0f, 1.0f, 1.0f, 0.0f};
-    static const __m128 IdentityR3 = {0.0f, 0.0f, 0.0f, 1.0f};
-    static const VMMASK Mask3 = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000};
+    static const __m128 constant1110 = {1.0f, 1.0f, 1.0f, 0.0f};
+    static const __m128 identity3 = {0.0f, 0.0f, 0.0f, 1.0f};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     Q0 = _mm_add_ps(q, q);
     Q1 = _mm_mul_ps(q, Q0);
 
     V0 = _mm_shuffle_ps(Q1, Q1, _MM_SHUFFLE(3,0,0,1));
-    V0 = _mm_and_ps(V0, Mask3.v);
+    V0 = _mm_and_ps(V0, mask3.v);
     V1 = _mm_shuffle_ps(Q1, Q1, _MM_SHUFFLE(3,1,2,2));
-    V1 = _mm_and_ps(V1, Mask3.v);
-    R0 = _mm_sub_ps(Constant1110, V0);
+    V1 = _mm_and_ps(V1, mask3.v);
+    R0 = _mm_sub_ps(constant1110, V0);
     R0 = _mm_sub_ps(R0, V1);
 
     V0 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(3,1,0,0));
@@ -228,14 +228,14 @@ __forceinline vmmat toMatrix(vmvecFastParam q)
     M.row1 = Q1;
     Q1 = _mm_shuffle_ps(V1, R0, _MM_SHUFFLE(3,2,1,0));
     M.row2 = Q1;
-    M.row3 = IdentityR3;
+    M.row3 = identity3;
     return M;
 }
 
 __forceinline vmmat toMatrix(vmtransParam t)
 {
     static const __m128 identity3 = {0.0f, 0.0f, 0.0f, 1.0f};
-    static const VMMASK mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     vmmat m = toMatrix(t.quat);
     vmmat r;
@@ -250,7 +250,7 @@ __forceinline vmmat toMatrix(vmtransParam t)
 __forceinline vmmat makeLookAtM(vmvecFastParam eye, vmvecFastParam at, vmvecFastParam up)
 {
     static const __m128 identity3 = {0.0f, 0.0f, 0.0f, 1.0f};
-    static const VMMASK mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
+    static const vmmask mask3 = {0xffffffff, 0xffffffff, 0xffffffff, 0};
 
     vmmat r;
     r.row2 = normalize3(sub3(at, eye));

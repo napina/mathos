@@ -55,36 +55,36 @@ float extractX(vmvecFastParam v);
 float extractY(vmvecFastParam v);
 float extractZ(vmvecFastParam v);
 float extractW(vmvecFastParam v);
-uint32 extractXInt(vmvecFastParam v);
-uint32 extractYInt(vmvecFastParam v);
-uint32 extractZInt(vmvecFastParam v);
-uint32 extractWInt(vmvecFastParam v);
+uint32_t extractXInt(vmvecFastParam v);
+uint32_t extractYInt(vmvecFastParam v);
+uint32_t extractZInt(vmvecFastParam v);
+uint32_t extractWInt(vmvecFastParam v);
 //-----------------------------------------------------------------------------
 
 // Setters
 vmvec make(float x, float y, float z, float w);
-vmvec makeInt(uint32 x, uint32 y, uint32 z, uint32 w);
+vmvec makeInt(uint32_t x, uint32_t y, uint32_t z, uint32_t w);
 vmvec replicate(float f);
 vmvec splatZero();
 vmvec splatOne();
 vmvec splatSignMask();
-vmvec splatMask(uint32 mask);
+vmvec splatMask(uint32_t mask);
 vmvec splatX(vmvecFastParam v);
 vmvec splatY(vmvecFastParam v);
 vmvec splatZ(vmvecFastParam v);
 vmvec splatW(vmvecFastParam v);
 vmvec select(vmvecFastParam a, vmvecFastParam b, vmvecFastParam control);
-vmvec permute(vmvecFastParam a, vmvecFastParam b, uint32 e0, uint32 e1, uint32 e2, uint32 e3);
+vmvec permute(vmvecFastParam a, vmvecFastParam b, uint32_t e0, uint32_t e1, uint32_t e2, uint32_t e3);
 vmvec permute(vmvecFastParam a, vmvecFastParam b, vmvecFastParam control);
 vmvec permuteXYZA(vmvecFastParam a, vmvecFastParam b);
 vmvec mergeXY(vmvecFastParam a, vmvecFastParam b);
 vmvec mergeZW(vmvecFastParam a, vmvecFastParam b);
 
-//vmvec vm_insert(vmvecFastParam v1, vmvecFastParam v2, uint32 selectX, uint32 selectY, uint32 selectZ, uint32 selectW);
-//vmvec vm_shiftLeft(vmvecFastParam v1, vmvecFastParam v2, uint32 elements);
-//vmvec vm_rotateLeft(vmvecFastParam v, uint32 elements);
-//vmvec vm_rotateRight(vmvecFastParam v, uint32 elements);
-//vmvec vm_swizzle(vmvecFastParam v, uint32 e0, uint32 e1, uint32 e2, uint32 e3);
+//vmvec vm_insert(vmvecFastParam v1, vmvecFastParam v2, uint32_t selectX, uint32_t selectY, uint32_t selectZ, uint32_t selectW);
+//vmvec vm_shiftLeft(vmvecFastParam v1, vmvecFastParam v2, uint32_t elements);
+//vmvec vm_rotateLeft(vmvecFastParam v, uint32_t elements);
+//vmvec vm_rotateRight(vmvecFastParam v, uint32_t elements);
+//vmvec vm_swizzle(vmvecFastParam v, uint32_t e0, uint32_t e1, uint32_t e2, uint32_t e3);
 //-----------------------------------------------------------------------------
 
 // Conditional
@@ -96,17 +96,17 @@ vmvec isLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
 vmvec isGreater(vmvecFastParam v1, vmvecFastParam v2);
 vmvec isGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
 vmvec isInBounds(vmvecFastParam v, vmvecFastParam bounds);
-uint32 allEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 allLess(vmvecFastParam v1, vmvecFastParam v2);
-uint32 allLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 allGreater(vmvecFastParam v1, vmvecFastParam v2);
-uint32 allGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 allSame(vmvecFastParam v);
-uint32 anyEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 anyLess(vmvecFastParam v1, vmvecFastParam v2);
-uint32 anyLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
-uint32 anyGreater(vmvecFastParam v1, vmvecFastParam v2);
-uint32 anyGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t allEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t allLess(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t allLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t allGreater(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t allGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t allSame(vmvecFastParam v);
+uint32_t anyEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t anyLess(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t anyLessOrEqual(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t anyGreater(vmvecFastParam v1, vmvecFastParam v2);
+uint32_t anyGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2);
 //-----------------------------------------------------------------------------
 
 // Clipping

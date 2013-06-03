@@ -90,7 +90,7 @@ __forceinline vmvec make(float x, float y, float z, float w)
     return _mm_set_ps(w, z, y, x);
 }
 
-__forceinline vmvec makeInt(uint32 x, uint32 y, uint32 z, uint32 w)
+__forceinline vmvec makeInt(uint32_t x, uint32_t y, uint32_t z, uint32_t w)
 {
     __m128i V = _mm_set_epi32(w, z, y, x);
     return reinterpret_cast<__m128 *>(&V)[0];
@@ -109,13 +109,13 @@ __forceinline vmvec splatOne()
 
 __forceinline vmvec splatSignMask()
 {
-    static const VMMASK mask = {0x80000000, 0x80000000, 0x80000000, 0x80000000};
+    static const vmmask mask = {0x80000000, 0x80000000, 0x80000000, 0x80000000};
     return mask.v;
 //    __m128i v = _mm_set1_epi32(0x80000000);
 //    return reinterpret_cast<__m128*>(&v)[0];
 }
 
-__forceinline vmvec splatMask(uint32 mask)
+__forceinline vmvec splatMask(uint32_t mask)
 {
     __m128i v = _mm_set1_epi32(mask);
     return reinterpret_cast<__m128*>(&v)[0];
@@ -153,7 +153,7 @@ __forceinline vmvec select(vmvecFastParam v1, vmvecFastParam v2, vmvecFastParam 
     return _mm_or_ps(tmp1, tmp2);
 }
 
-__forceinline vmvec permute(vmvecFastParam v1, vmvecFastParam v2, uint32 e0, uint32 e1, uint32 e2, uint32 e3)
+__forceinline vmvec permute(vmvecFastParam v1, vmvecFastParam v2, uint32_t e0, uint32_t e1, uint32_t e2, uint32_t e3)
 {
     // TODO optimize
     vmvec a[2];
@@ -219,7 +219,7 @@ __forceinline vmvec fract4(vmvecFastParam v)
 
 __forceinline vmvec round4(vmvecFastParam v)
 {
-    static const VMMASK signMask = {0x80000000, 0x80000000, 0x80000000, 0x80000000};
+    static const vmmask signMask = {0x80000000, 0x80000000, 0x80000000, 0x80000000};
     static const __m128 half = {0.5f, 0.5f, 0.5f, 0.5f};
     
     const __m128 s = _mm_and_ps(v, signMask.v);
@@ -230,7 +230,7 @@ __forceinline vmvec round4(vmvecFastParam v)
 
 __forceinline vmvec floor4(vmvecFastParam v)
 {
-    static const VMMASK oneHalfMinusEpsilon = {0x3EFFFFFD, 0x3EFFFFFD, 0x3EFFFFFD, 0x3EFFFFFD};
+    static const vmmask oneHalfMinusEpsilon = {0x3EFFFFFD, 0x3EFFFFFD, 0x3EFFFFFD, 0x3EFFFFFD};
 
     const __m128 r = _mm_sub_ps(v, oneHalfMinusEpsilon.v);
     const __m128i i = _mm_cvtps_epi32(r);
@@ -239,7 +239,7 @@ __forceinline vmvec floor4(vmvecFastParam v)
 
 __forceinline vmvec ceil4(vmvecFastParam v)
 {
-    static const VMMASK oneHalfMinusEpsilon = {0x3EFFFFFD, 0x3EFFFFFD, 0x3EFFFFFD, 0x3EFFFFFD};
+    static const vmmask oneHalfMinusEpsilon = {0x3EFFFFFD, 0x3EFFFFFD, 0x3EFFFFFD, 0x3EFFFFFD};
 
     const __m128 r = _mm_add_ps(v, oneHalfMinusEpsilon.v);
     const __m128i i = _mm_cvtps_epi32(r);
@@ -366,7 +366,7 @@ __forceinline vmvec reciprocalEst4(vmvecFastParam v)
 #define _PS_CONST(Name, Val)\
   static const __m128 _ps_##Name = { Val, Val, Val, Val }
 #define _PI32_CONST(Name, Val)\
-  static const VMMASK _pi32_##Name = { Val, Val, Val, Val }
+  static const vmmask _pi32_##Name = { Val, Val, Val, Val }
 
 __forceinline vmvec sin4(vmvecFastParam v)
 {
@@ -601,7 +601,7 @@ __forceinline vmvec atanPositive4(vmvecFastParam y, vmvecFastParam x)
     static const __m128 atan_c7  = {-0.3333314528f, -0.3333314528f, -0.3333314528f, -0.3333314528f};
     static const __m128 halfpi   = {1.57079633f, 1.57079633f, 1.57079633f, 1.57079633f};
     static const __m128 one      = {1.0f, 1.0f, 1.0f, 1.0f};
-    static const VMMASK signMask = {0x80000000, 0x80000000, 0x80000000, 0x80000000};
+    static const vmmask signMask = {0x80000000, 0x80000000, 0x80000000, 0x80000000};
 
     const __m128 minv = _mm_min_ps(x, y);
     const __m128 maxv = _mm_max_ps(x, y);
@@ -681,57 +681,57 @@ __forceinline vmvec isInBounds(vmvecFastParam v, vmvecFastParam bounds)
     return _mm_and_ps(a, b);
 }
 
-__forceinline uint32 allEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpeq_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 allLess(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allLess(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmplt_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 allLessOrEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allLessOrEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmple_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 allGreater(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allGreater(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpgt_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 allGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t allGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpge_ps(v1, v2)) == 0xf;
 }
 
-__forceinline uint32 anyEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpeq_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 anyLess(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyLess(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmplt_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 anyLessOrEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyLessOrEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmple_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 anyGreater(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyGreater(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpgt_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 anyGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2)
+__forceinline uint32_t anyGreaterOrEqual(vmvecFastParam v1, vmvecFastParam v2)
 {
     return _mm_movemask_ps(_mm_cmpge_ps(v1, v2)) != 0;
 }
 
-__forceinline uint32 allSame(vmvecFastParam v)
+__forceinline uint32_t allSame(vmvecFastParam v)
 {
     return _mm_movemask_ps(_mm_cmpeq_ps(v, _mm_shuffle_ps(v, v, _MM_SHUFFLE(0,0,0,0)))) == 0xf;
 }
@@ -739,7 +739,7 @@ __forceinline uint32 allSame(vmvecFastParam v)
 
 __forceinline vmvec randomSeed()
 {
-    static const VMMASK defaultSeed = {
+    static const vmmask defaultSeed = {
         0x10D63AF1, // 16087^2
         0x60B7A437, // 16087^3
         0xB87E16E1, // 16087^4

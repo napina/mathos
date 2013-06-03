@@ -47,19 +47,19 @@ __forceinline vmvec toQuaternion(vmmatParam m)
     static const __m128 SignPPNP = {1.0f, 1.0f, -1.0f, 1.0f};
     static const __m128 SignNPPP = {-1.0f, 1.0f, 1.0f, 1.0f};
     static const __m128 Epsilon = {1.192092896e-7f, 1.192092896e-7f, 1.192092896e-7f, 1.192092896e-7f};
-    static const VMMASK Permute0X0X0Y0W = {VM_PERMUTE_0X, VM_PERMUTE_0X, VM_PERMUTE_0Y, VM_PERMUTE_0W};
-    static const VMMASK Permute0Y0Z0Z1W = {VM_PERMUTE_0Y, VM_PERMUTE_0Z, VM_PERMUTE_0Z, VM_PERMUTE_1W};
-    static const VMMASK SplatX = {VM_PERMUTE_0X, VM_PERMUTE_0X, VM_PERMUTE_0X, VM_PERMUTE_0X};
-    static const VMMASK SplatY = {VM_PERMUTE_0Y, VM_PERMUTE_0Y, VM_PERMUTE_0Y, VM_PERMUTE_0Y};
-    static const VMMASK SplatZ = {VM_PERMUTE_0Z, VM_PERMUTE_0Z, VM_PERMUTE_0Z, VM_PERMUTE_0Z};
-    static const VMMASK SplatW = {VM_PERMUTE_0W, VM_PERMUTE_0W, VM_PERMUTE_0W, VM_PERMUTE_0W};
-    static const VMMASK PermuteC = {VM_PERMUTE_0X, VM_PERMUTE_0Z, VM_PERMUTE_1X, VM_PERMUTE_1Y};
-    static const VMMASK PermuteA = {VM_PERMUTE_0Y, VM_PERMUTE_1Y, VM_PERMUTE_1Z, VM_PERMUTE_0W};
-    static const VMMASK PermuteB = {VM_PERMUTE_1X, VM_PERMUTE_1W, VM_PERMUTE_0Z, VM_PERMUTE_0W};
-    static const VMMASK Permute0 = {VM_PERMUTE_0X, VM_PERMUTE_1X, VM_PERMUTE_1Z, VM_PERMUTE_1Y};
-    static const VMMASK Permute1 = {VM_PERMUTE_1X, VM_PERMUTE_0Y, VM_PERMUTE_1Y, VM_PERMUTE_1Z};
-    static const VMMASK Permute2 = {VM_PERMUTE_1Z, VM_PERMUTE_1Y, VM_PERMUTE_0Z, VM_PERMUTE_1X};
-    static const VMMASK Permute3 = {VM_PERMUTE_1Y, VM_PERMUTE_1Z, VM_PERMUTE_1X, VM_PERMUTE_0W};
+    static const vmmask Permute0X0X0Y0W = {VM_PERMUTE_0X, VM_PERMUTE_0X, VM_PERMUTE_0Y, VM_PERMUTE_0W};
+    static const vmmask Permute0Y0Z0Z1W = {VM_PERMUTE_0Y, VM_PERMUTE_0Z, VM_PERMUTE_0Z, VM_PERMUTE_1W};
+    static const vmmask SplatX = {VM_PERMUTE_0X, VM_PERMUTE_0X, VM_PERMUTE_0X, VM_PERMUTE_0X};
+    static const vmmask SplatY = {VM_PERMUTE_0Y, VM_PERMUTE_0Y, VM_PERMUTE_0Y, VM_PERMUTE_0Y};
+    static const vmmask SplatZ = {VM_PERMUTE_0Z, VM_PERMUTE_0Z, VM_PERMUTE_0Z, VM_PERMUTE_0Z};
+    static const vmmask SplatW = {VM_PERMUTE_0W, VM_PERMUTE_0W, VM_PERMUTE_0W, VM_PERMUTE_0W};
+    static const vmmask PermuteC = {VM_PERMUTE_0X, VM_PERMUTE_0Z, VM_PERMUTE_1X, VM_PERMUTE_1Y};
+    static const vmmask PermuteA = {VM_PERMUTE_0Y, VM_PERMUTE_1Y, VM_PERMUTE_1Z, VM_PERMUTE_0W};
+    static const vmmask PermuteB = {VM_PERMUTE_1X, VM_PERMUTE_1W, VM_PERMUTE_0Z, VM_PERMUTE_0W};
+    static const vmmask Permute0 = {VM_PERMUTE_0X, VM_PERMUTE_1X, VM_PERMUTE_1Z, VM_PERMUTE_1Y};
+    static const vmmask Permute1 = {VM_PERMUTE_1X, VM_PERMUTE_0Y, VM_PERMUTE_1Y, VM_PERMUTE_1Z};
+    static const vmmask Permute2 = {VM_PERMUTE_1Z, VM_PERMUTE_1Y, VM_PERMUTE_0Z, VM_PERMUTE_1X};
+    static const vmmask Permute3 = {VM_PERMUTE_1Y, VM_PERMUTE_1Z, VM_PERMUTE_1X, VM_PERMUTE_0W};
 
     __m128 Q0, Q1, Q2;
     __m128 M00, M11, M22;
@@ -327,8 +327,8 @@ __forceinline vmvec slerpQ(vmvecFastParam q1, vmvecFastParam q2, vmvecFastParam 
     static const __m128 negOne = {-1.0f, -1.0f, -1.0f, -1.0f};
     static const __m128 identity0 = {1.0f, 0.0f, 0.0f, 0.0f};
     static const __m128 OneMinusEpsilon = {1.0f - 0.00001f, 1.0f - 0.00001f, 1.0f - 0.00001f, 1.0f - 0.00001f};
-    static const VMMASK SignMask2 = {0x80000000,0x00000000,0x00000000,0x00000000};
-    static const VMMASK MaskXY = {0xFFFFFFFF,0xFFFFFFFF,0x00000000,0x00000000};
+    static const vmmask SignMask2 = {0x80000000,0x00000000,0x00000000,0x00000000};
+    static const vmmask MaskXY = {0xFFFFFFFF,0xFFFFFFFF,0x00000000,0x00000000};
 
     CosOmega = dot4(q1, q2);
 
