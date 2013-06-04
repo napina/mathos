@@ -288,8 +288,12 @@ __forceinline vmmat transposeM(vmmatParam m)
 
 __forceinline vmmat orthonormalizeM(vmmatParam m)
 {
-    // TODO
-    return m;
+    vmmat r;
+    r.row0 = normalize3(m.row0);
+    r.row1 = normalize3(m.row1 - dot3(m.row1, r.row0) * r.row0);
+    r.row2 = cross3(r.row0, r.row1);
+    r.row3 = m.row3;
+    return r;
 }
 
 __forceinline vmmat mulM(vmmatParam m1, vmmatParam m2)
